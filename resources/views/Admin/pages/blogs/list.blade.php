@@ -77,31 +77,31 @@ $(document).ready(function() {
 });
 </script>
 <script>
-document.querySelectorAll('.js-delete-blog').forEach(button => {
-    button.addEventListener('click', function() {
-
-        var productId = this.getAttribute('data-id');
-
-
-        fetch('/delete-blog/' + productId, {
-                method: 'DELETE', // Sử dụng phương thức DELETE
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Truyền token CSRF
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-
-                    window.location.reload();
-                } else {
-                    console.error('Error:', response);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+    document.querySelectorAll('.js-delete-blog').forEach(button => {
+        button.addEventListener('click', function() {
+            // Hiển thị hộp thoại xác nhận
+            if (confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) {
+                var productId = this.getAttribute('data-id');
+                
+                fetch('/delete-blog/' + productId, {
+                    method: 'DELETE', // Sử dụng phương thức DELETE
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // Truyền token CSRF
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        console.error('Error:', response);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        });
     });
-});
 </script>
 
 @endsection

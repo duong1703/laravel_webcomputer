@@ -17,17 +17,20 @@
                 <div class="easion-card-title">Thông tin sản phẩm</div>
             </div>
             <div class="card-body">
-                @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{ Session::get('success') }}
+                <div id="add-alerts">
+                    @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        @foreach ($errors->all() as $error)
+                        {{ $error }}
+                        @endforeach
+                    </div>
+                    @endif
+                    @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
                 </div>
-                @endif
-
-                @if(Session::has('error'))
-                <div class="alert alert-danger">
-                    {{ Session::get('error') }}
-                </div>
-                @endif
                 <form action="{{ route('product.create') }}" enctype="multipart/form-data" method="post">
                     @csrf
 

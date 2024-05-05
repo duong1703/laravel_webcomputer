@@ -43,8 +43,9 @@
                             @foreach ($products as $product)
                             <tr>
                                 <td>{{ $count++ }}</td>
-
+                                
                                 <td>{{ $product->name }}</td>
+                                
                                 <td class="text-center">
                                     <img src="{{ asset($product->images) }}" height="50px">
                                 </td>
@@ -54,8 +55,7 @@
                                 <td class="text-center">{{ $product->amount }}</td>
                                 <td class="text-center">{{ $product->status }}</td>
                                 <td class="text-center">
-                                    <a href="/views/admin/pages/product/edit/{{$product->id }}"
-                                        class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                <a href="/views/admin/pages/product/edit/{{ $product->id }}" class="btn btn-primary btn-sm" onclick="return confirm('Bạn có chắc chắn muốn chỉnh sửa sản phẩm này không?');"><i class="fas fa-edit"></i></a>
                                     <a class="btn btn-danger btn-sm js-delete-product" data-id="{{ $product->id }}">
                                         <i class="far fa-trash-alt"></i>
                                     </a>
@@ -74,35 +74,34 @@ $(document).ready(function() {
     $('#datatable').DataTable();
 });
 </script>
-
 <script>
-   
     document.querySelectorAll('.js-delete-product').forEach(button => {
         button.addEventListener('click', function() {
-            
-            var productId = this.getAttribute('data-id');
-            
-            
-            fetch('/delete-product/' + productId, {
-                method: 'DELETE', // Sử dụng phương thức DELETE
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Truyền token CSRF
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                   
-                    window.location.reload();
-                } else {
-                    console.error('Error:', response);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            // Hiển thị hộp thoại xác nhận
+            if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
+                var productId = this.getAttribute('data-id');
+                
+                fetch('/delete-product/' + productId, {
+                    method: 'DELETE', // Sử dụng phương thức DELETE
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // Truyền token CSRF
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        console.error('Error:', response);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
         });
     });
 </script>
+
 
 
 @endsection

@@ -111,5 +111,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script async src="https://cse.google.com/cse.js?cx=76d01f3bea7db4066"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
 
+
+
+function AddCart(id) {
+    $.ajax({
+        url: '/Add-Cart/' + id,
+        type: 'GET',
+
+    }).done(function(response) {
+        console.log(response);
+        $("#cart_items").empty();
+        $("#cart_items").html(response);
+
+        // Hiển thị thông báo thêm sản phẩm thành công
+        $("#cart-notification").fadeIn().delay(3000).fadeOut();
+    });
+}
+</script>
 </html>

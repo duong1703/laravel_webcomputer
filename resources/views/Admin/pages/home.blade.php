@@ -12,7 +12,7 @@
                 </div>
                 <div class="stats-data">
 
-                    <div class="stats-number"></div>
+                    <div class="stats-number">{{ $totalAdminUser }}</div>
 
                 </div>
             </div>
@@ -26,20 +26,20 @@
                     <i class="fas fa-cube"></i>
                 </div>
                 <div class="stats-data">
-                    <div class="stats-number"></div>
+                    <div class="stats-number">{{ $totalAdminProduct }}</div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-xl-6 rounded-4">
-        <div class="stats stats-warning shadow-lg p-3 mb-5 rounded-4 ">
-            <h3 class="stats-title"> Số lượng bài viết</h3>
+        <div class="stats stats-warning shadow-lg p-3 mb-5 rounded-4">
+            <h3 class="stats-title">Số lượng bài viết</h3>
             <div class="stats-content">
                 <div class="stats-icon">
                     <i class="fas fa-book"></i>
                 </div>
                 <div class="stats-data">
-                    <div class="stats-number"></div>
+                    <div class="stats-number">{{ $totalAdminBlog }}</div>
                 </div>
             </div>
         </div>

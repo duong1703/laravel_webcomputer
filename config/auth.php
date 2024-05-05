@@ -45,6 +45,11 @@ return [
             'driver' => 'session', // Hoặc 'token' nếu bạn muốn sử dụng token
             'provider' => 'admins', // Tên của provider mà bạn định nghĩa dưới đây
         ],
+
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers', // Định nghĩa provider tương ứng
+        ],
     ],
 
     /*
@@ -73,6 +78,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin\AdminUser::class, // Thay bằng model người dùng admin của bạn
+        ],
+
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class, // Định nghĩa model của người dùng
         ],
 
         // 'users' => [

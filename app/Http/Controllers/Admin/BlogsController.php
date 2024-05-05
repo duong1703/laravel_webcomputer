@@ -43,8 +43,18 @@ class BlogsController extends Controller
     
 
 
-            return view('admin/pages/blogs/list', ['blogs' => $blogs]);
+        return redirect('/views/admin/pages/blogs/list')->with('success', 'Bài viết đã được cập nhật thành công.');
 
+    }
+
+    public function updateBlogs(Request $request, $id)
+    {
+    $post = AdminBlogs::findOrFail($id);
+    $post->title = $request->input('title');
+    $post->content = $request->input('content');
+    // Cập nhật các trường thông tin khác nếu cần
+    $post->save();
+    return redirect('/views/admin/pages/blogs/list')->with('success', 'Bài viết đã được cập nhật thành công.');
     }
 
 

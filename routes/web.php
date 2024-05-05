@@ -12,7 +12,10 @@ use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\CategoryController;
 use App\Http\Controllers\Client\ContactController;
 use App\Http\Controllers\Client\IntroController;
+use App\Http\Controllers\Client\LogoutController;
+use App\Http\Controllers\Client\PaymentController;
 use App\Http\Controllers\Client\ProductDetailController;
+use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\Client\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,12 +27,15 @@ Route::get('/', function () {
 Route::get('views/client/pages/home', [\App\Http\Controllers\Client\HomeController::class, 'index']);
 Route::get('show', [\App\Http\Controllers\Client\HomeController::class, 'show']);
 
-Route::get('views/client/pages/product', [\App\Http\Controllers\Client\ProductController::class, 'index']);
+Route::get('views/client/pages/product', [\App\Http\Controllers\Client\ProductController::class, 'index'])->name('listproduct');
 
 Route::get('views/client/pages/product_detail', [ProductDetailController::class, 'index']);
 Route::get('views/client/pages/product_detail/{id}', [ProductDetailController::class, 'index']);
 Route::get('views/client/pages/product_detail/{id}', [ProductDetailController::class, 'show'])->name('products.show');
-Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category.show');
+// Route::get('/products/{category?}', [\App\Http\Controllers\Client\ProductController::class, 'showProducts'])->name('products.category');
+
+Route::get('views/client/pages/profile', [ProfileController::class, 'index'])->name('profile');
+
 
 Route::get('views/client/pages/contact', [ContactController::class, 'index']);
 
@@ -37,19 +43,26 @@ Route::get('views/client/pages/blogs', [BlogController::class, 'index']);
 
 Route::get('views/client/pages/blogs_single', [BlogController::class, 'index']);
 
-Route::get('views/client/pages/login', [\App\Http\Controllers\Client\LoginController::class, 'index'])->name('customer.login');
+Route::get('views/client/pages/login', [\App\Http\Controllers\Client\LoginController::class, 'index']);
+Route::post('views/client/pages/login', [\App\Http\Controllers\Client\LoginController::class, 'login'])->name('customer.login');
 
-Route::post('/login', [\App\Http\Controllers\Client\LoginController::class, 'login']);
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
-Route::get('views/client/pages/register', [RegisterController::class, 'index'])->name('customer.register');
+Route::get('views/client/pages/register', [RegisterController::class, 'index']);
 
-Route::post('register', [RegisterController::class, 'register']);
+Route::post('views/client/pages/register', [RegisterController::class, 'register'])->name('customer.register');
 
 Route::get('views/client/pages/intro', [IntroController::class, 'index']);
 
-Route::get('views/client/pages/cart', [CartController::class, 'index']);
+Route::get('views/client/pages/cart', [\App\Http\Controllers\Client\ProductController::class, 'cart'])->name('viewcart');
+//cart
+Route::get('add-to-cart/{id}', [\App\Http\Controllers\Client\ProductController::class, 'addToCart'])->name('add_to_cart');
+Route::delete('remove-from-cart', [\App\Http\Controllers\Client\ProductController::class, 'remove'])->name('remove_from_cart');
 
 
+
+// //Cong thanh toán
+Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment']);
 
 
 
@@ -75,12 +88,12 @@ Route::middleware(['Authenticate'])->group(function () {
     Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
 
     //Product
-    Route::get('views/admin/pages/product/list', [ProductController::class, 'listProduct']);
+    Route::get('views/admin/pages/product/list', [ProductController::class, 'listProduct'])->name('admin.product.list');
     Route::get('views/admin/pages/product/add', [ProductController::class, 'addProduct']);
     Route::post('/product/create', [ProductController::class, 'create'])->name('product.create');
-    Route::get('views/admin/pages/product/edit', [ProductController::class, 'update'])->name('update');
-    Route::get('views/admin/pages/product/edit/{slug}', [ProductController::class, 'update'])->name('update');
-    Route::put('admin/pages/product/update/{slug}', [ProductController::class, 'update'])->name('update');
+    Route::put('views/admin/pages/product/edit/{id}', [ProductController::class, 'editProduct'])->name('editProduct');
+    Route::get('views/admin/pages/product/edit/{slug}', [ProductController::class, 'edit'])->name('admin.pages.product.edit');
+    Route::put('/views/admin/pages/product/edit/{slug}', [ProductController::class, 'updateProduct'])->name('admin.product.list');
     Route::delete('/delete-product/{id}', [ProductController::class, 'delete']);
 
     //Comment
@@ -94,7 +107,8 @@ Route::middleware(['Authenticate'])->group(function () {
     Route::get('views/admin/pages/blogs/add', [BlogsController::class, 'addBlogs']);
     Route::post('Create', [BlogsController::class, 'Create'])->name('blog.create');
     Route::post('/blogs/delete/{slug}', [BlogsController::class, 'delete'])->name('blogs.delete');
-    Route::get('views/admin/pages/blogs/edit', [BlogsController::class, 'editBlogs']);
+    Route::get('views/admin/pages/blogs/edit', [BlogsController::class, 'editBlogs'])->name('editBlogs');
     Route::get('views/admin/pages/blogs/edit/{slug}', [BlogsController::class, 'editBlogs']);
+    Route::put('/views/admin/pages/blogs/edit/{slug}', [BlogsController::class, 'updateBlogs'])->name('updateBlogs');
     Route::delete('/delete-blog/{id}', [BlogsController::class, 'delete']);
 });

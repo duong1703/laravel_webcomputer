@@ -24,8 +24,8 @@
                             </div>
                             @endif
                         </div>
-                        <form action="{{ route('user.update', ['id' => $adminuser->id]) }}" method="post">
-                            @csrf
+                        <form action="/views/admin/pages/product/edit/{{ $adminuser->id }}" method="post">
+                        @csrf
                             @method('PUT')
                             <input name="id" value="" hidden>
                             <div class="form-row">

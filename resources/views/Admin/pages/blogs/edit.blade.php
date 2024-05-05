@@ -17,9 +17,10 @@
                         <div class="easion-card-title"> Thông tin bài viết </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('editBlogs', $blogs->id) }}" method="post">
+                    <form action="/views/admin/pages/blogs/edit/{{ $blogs->id }}" method="post">
                             @csrf
                             @method('PUT')
+                          
                             <div class="form-group">
                                 <label for="title">Tiêu đề:</label>
                                 <input type="text" class="form-control" id="title" name="title"
@@ -31,8 +32,8 @@
                                     name="content">{{ $blogs->content }}</textarea>
                             </div>
                             <button type="submit" class="btn btn-success rounded-4">Cập nhật</button>
-                            <a style="background-color: red" href="" class="btn btn-secondary rounded-4">Hủy</a>
-                            <button id="btn-reset-edit-product" type="reset" class="btn btn-secondary rounded-4"
+                            <a style="background-color: red" href="/views/admin/pages/blogs/list" class="btn btn-secondary rounded-4">Hủy</a>
+                            <button id="btn-reset-edit-blog" type="reset" class="btn btn-secondary rounded-4"
                                 onclick="return confirm('Are you sure you want to reset?')">Reset</button>
                             <a style="background-color: yellow" href="/views/admin/pages/blogs/list"
                                 class="btn btn-warning rounded-4">Quay lại</a>

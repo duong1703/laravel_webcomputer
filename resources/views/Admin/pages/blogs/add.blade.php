@@ -22,6 +22,11 @@
                             {{ $error }}
                             @endforeach
                         </div>
+                        @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                        @endif
                         @endif
                         <form action="{{ route('blog.create') }}" enctype="multipart/form-data" method="post">
                             <!-- Add CSRF token for security -->
@@ -35,8 +40,8 @@
                                 <input name="images" type="file" accept="image/*" class="form-control-file" id="images"
                                     required>
                                 <div class="form-group">
-                                    <img id="img-show" src="{{ asset('images/') }}" class="img-fluid" alt="Hình đại diện."
-                                        style="display: none; height: 80px; width: 80px;">
+                                    <img id="img-show" src="{{ asset('images/') }}" class="img-fluid"
+                                        alt="Hình đại diện." style="display: none; height: 80px; width: 80px;">
                                 </div>
                             </div>
                             <div style="padding-top: 20px">

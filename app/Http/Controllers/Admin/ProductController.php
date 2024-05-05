@@ -45,37 +45,54 @@ class ProductController extends Controller
             $product->price = $request->input('price');
             $product->images = $images ;
             $product->save();
-            // dd($poducts);
+            
         // Flash tinnhắn thành công
         $request->session()->flash('success', 'Sản phẩm đã được thêm mới thành công!');
         $request->session()->flash('error', 'Sản phẩm đã được thêm mới thất bại!');
-        return view('admin/pages/product/list', ['products' => $product]);
+        return redirect('/views/admin/pages/product/list');
     }
 
-    public function update(Request $request, $id)
+    public function edit($id) {
+        $product = AdminProduct::findOrFail($id);
+        return view('admin.pages.product.edit', compact('product'));
+    }
+
+    public function editProduct($id){
+        $product = AdminProduct::findOrFail($id);
+        if ($product) {
+            return view('admin.pages.product.edit', compact('product'));
+        } else {
+            return redirect('admin/pages/product/edit')->with('error', 'Không tìm thấy bài viết.');
+        }
+    }
+    
+    
+    public function updateProduct(Request $request, $id)
     {
-    // Validate dữ liệu đầu vào
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'price' => 'required|numeric',
-        'description' => 'nullable|string',
-        // Thêm các quy tắc kiểm tra dữ liệu khác nếu cần
-    ]);
-
-    // Tìm sản phẩm cần cập nhật
-    $product = AdminProduct::findOrFail($id);
-
-    // Cập nhật thông tin sản phẩm
-    $product->name = $validatedData['name'];
-    $product->price = $validatedData['price'];
-    $product->description = $validatedData['description'];
-
-    // Lưu thay đổi vào cơ sở dữ liệu
-    $product->save();
-
-    // Redirect về trang danh sách sản phẩm với thông báo thành công
-    return redirect()->route('/views/admin/pages/product/list')->with('success', 'Cập nhật sản phẩm thành công.');
+        // Tìm sản phẩm cần cập nhật
+        $product = AdminProduct::findOrFail($id);
+    
+        // Validate dữ liệu đầu vào từ form
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'nullable|string',
+        ]);
+    
+        // Cập nhật thông tin sản phẩm từ dữ liệu form
+        $product->name = $validatedData['name'];
+        $product->price = $validatedData['price'];
+        $product->description = $validatedData['description'];
+        $product->save();
+    
+        // Lưu thông báo thành công vào session
+        $request->session()->flash('success', 'Cập nhật sản phẩm thành công!');
+    
+        // Chuyển hướng về trang danh sách sản phẩm
+        return redirect()->route('admin.product.list');
     }
+    
+
 
     public function delete($id)
     {

@@ -8,18 +8,22 @@
                     <div class="card-body p-md-5">
                         <div class="row justify-content-center mb-4">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                               
+
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Chào mừng đến với trang web của
                                     chúng tôi!</p>
-                              
-                               
+
+                                @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                                @endif
                                 <form class="mx-1 mx-md-4 mt-4" action="{{ route('customer.login') }}" method="post">
-                                   @csrf
-                                    
+                                    @csrf
+
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="email">Email</label>
-                                        <input type="email" name="customer_email" value=""
-                                            id="email" class="form-control" placeholder="Example@gmail.com" required />
+                                        <input type="email" name="customer_email" value="" id="email"
+                                            class="form-control" placeholder="Example@gmail.com" required />
                                     </div>
                                     <div class="form-outline mb-4 " style="padding-top: 20px">
                                         <label class="form-label" for="password">Mật khẩu</label>

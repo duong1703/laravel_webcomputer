@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
@@ -9,8 +10,8 @@ use DB;
 class BlogController extends Controller
 {
     public function index(){
-        $blogs = DB::table('blogs_models')->get()->partition(5);
-        return view('/client/pages/blogs', ['blogs' => $blogs]);
+        $data = DB::table('blogs_models')->get();
+        return view('/client/pages/blogs', compact('data'));
     }
 
     public function blogs_single(){

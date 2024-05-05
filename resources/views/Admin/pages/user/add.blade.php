@@ -17,17 +17,20 @@
                     <div class="easion-card-title"> Thông tin tài khoản </div>
                 </div>
                 <div class="card-body ">
-                    @if (session()->has('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{session('success')}}
+                    @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        @foreach ($errors->all() as $error)
+                        {{ $error }}
+                        @endforeach
+                    </div>
+                    @endif
+                    @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
                     </div>
                     @endif
                     <form action="{{ route('user.create') }}" method="post">
-                        @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                        @endif
+
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-8">

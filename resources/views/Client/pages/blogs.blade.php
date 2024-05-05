@@ -11,7 +11,7 @@
             <div class="col-sm-12">
                 <div class="blog-post-area" style="padding-bottom: 20px">
                     <div class="single-blog-post">
-
+                        @foreach($data as $blog)
                         <h3 style="color: orange"></h3>
                         <div class="post-meta">
                             <ul>
@@ -19,18 +19,17 @@
                                 <li><i class="fa fa-clock-o"></i></li>
                             </ul>
                         </div>
-
-
                         <img src="" alt="" height="60px" width="60px" style="margin-top: 20px">
-                        <p>
-                        {{  $blog->images}}
+                        <p style="font-family: Arial, sans-serif;">
+                    
+                            {{ $blog->content }}
                         <div class="hidden-content" style="display: none;">
                         </div>
 
                         </p>
                         <a class="btn btn-primary" href="blog_single">Xem
                             thêm</a>
-
+                        @endforeach
                     </div>
                 </div>
             </div>

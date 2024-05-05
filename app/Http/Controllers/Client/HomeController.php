@@ -14,10 +14,9 @@ class HomeController extends Controller
    public function index(){
       
       $data = AdminProduct::all();
+      $data = AdminProduct::take(9)->get();
       return view('/client/pages/home',compact('data') );
    }
 
-   
 
-  
 }

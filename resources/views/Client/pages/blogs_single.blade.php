@@ -1,3 +1,4 @@
-<div>
-    <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
-</div>
+@include('client.layout.header')
+
+
+@include('client.layout.footer')
