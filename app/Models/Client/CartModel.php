@@ -14,5 +14,5 @@ class CartModel extends Model
 
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['quantity', 'productId', 'UserId '];
+    protected $allowedFields = ['quantity', 'productId', 'UserId ', 'status'];
 }

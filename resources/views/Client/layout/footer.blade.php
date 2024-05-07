@@ -18,6 +18,15 @@
                     </div>
                 </div>
 
+                <div class="col-sm-3">
+                    <div class="flex-container">
+                        <a href="#">
+                            <img style="margin-top: 70px; margin-left 50px: " src="{{ asset('images/visa.png') }}"
+                                class="img-responsive" alt="Company Logo" height="200px" width="200px">
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

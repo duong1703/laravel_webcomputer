@@ -15,13 +15,13 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div class="text-center">
                     <h1>Thông tin người dùng</h1>
-                    <h5>ID người dùng: {{ session()->get("customer_id") }}</h5>
+                    <h5>ID người dùng:</h5>
                     <hr>
-                    <h5>Tên người dùng: {{ session()->get("customer_name") }}</h5>
+                    <h5>Tên người dùng: </h5>
                     <hr>
-                    <h5>Email: {{ session()->get("customer_email") }}</h5>
+                    <h5>Email: </h5>
                     <hr>
-                    <h5>Ngày tạo: {{ session()->get("created_date") }}</h5>
+                    <h5>Ngày tạo: </h5>
                     <hr>
                 </div>
             </div>

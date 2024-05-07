@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\AdminUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
@@ -71,31 +73,36 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-    // Validate dữ liệu đầu vào
+{
+    // Find the user by ID
+    $adminuser = AdminUser::findOrFail($id);
+
+    // Validate the request data
     $request->validate([
         'name' => 'required|string|max:255',
-        'email' => 'required|email',
+        'email' => 'required|string|email|max:255|unique:users,email,'.$adminuser->id,
+        'password' => 'nullable|string|min:8',
+        'status' => 'nullable|boolean',
+        // Add more validation rules as needed
     ]);
-    try{
-    // Tìm người dùng cần cập nhật thông tin
-    $adminuser = AdminUser::findOrFail($id);
-    $status = $request->input('status');
 
-    // Cập nhật thông tin người dùng
+    // Update user attributes
     $adminuser->name = $request->input('name');
     $adminuser->email = $request->input('email');
-    $adminuser->status = $status;
-    $adminuser->password = $request->input('password');
-    // Gán các trường khác nếu cần
+    
+    // Check if a new password is provided and update it
+    if ($request->has('password')) {
+        $adminuser->password = Hash::make($request->input('password'));
+    }
+
+    $adminuser->status = $request->status;
+
+    // Save the updated user
     $adminuser->save();
 
-    // Trả về chuyển hướng người dùng về trang danh sách người dùng với thông báo thành công
-    return view('admin/pages/user/list', ['adminuser' => $adminuser])->with('success', 'Thông tin người dùng đã được cập nhật thành công');
-} catch (\Exception $e) {
-    // Nếu có lỗi xảy ra, trả về chuyển hướng người dùng về trang cập nhật với thông báo lỗi
-    return view('admin/pages/user/edit', ['adminuser' => $adminuser])->withError('error', 'Có lỗi xảy ra khi cập nhật thông tin người dùng');
+    // Redirect back to the user list or any other appropriate page
+    return redirect()->route('listUser')->with('success', 'User updated successfully');
 }
+
     
-    }
 }

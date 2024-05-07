@@ -12,32 +12,35 @@
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Chào mừng đến với trang web của
                                     chúng tôi!</p>
 
-                                @if (session('error'))
-                                <div class="alert alert-danger">
-                                    {{ session('error') }}
+                                @if(Session::has('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ Session::get('error')}}
                                 </div>
                                 @endif
-                                <form class="mx-1 mx-md-4 mt-4" action="{{ route('customer.login') }}" method="post">
+                                <form class="mx-1 mx-md-4 mt-4" action="{{ route('postlogin') }}" method="post">
                                     @csrf
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="email">Email</label>
-                                        <input type="email" name="customer_email" value="" id="email"
-                                            class="form-control" placeholder="Example@gmail.com" required />
+                                        <input type="email" name="email" value="" id="email" class="form-control" placeholder="Example@gmail.com" />
+                                        @if($errors->has('email'))
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                        @endif
                                     </div>
                                     <div class="form-outline mb-4 " style="padding-top: 20px">
                                         <label class="form-label" for="password">Mật khẩu</label>
-                                        <input type="password" name="customer_password" class="form-control"
-                                            id="password" placeholder="Your password" required />
+                                        <input type="password" name="password" class="form-control" id="password" placeholder="Your password" />
+                                        @if($errors->has('password'))
+                                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                                        @endif
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
                                     <hr>
                                     <div class="text-center mt-4">
-                                        <p>Chưa có tài khoản? <a href="register">Đăng
-                                                ký ngay</a>
-                                        </p>
+                                        <p>Chưa có tài khoản? <a href="{{ route('register-user') }}">Đăng ký ngay</a></p>
                                     </div>
                                 </form>
+
                             </div>
                             <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                                 <img width="800" height="500"

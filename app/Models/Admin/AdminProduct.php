@@ -13,4 +13,6 @@ class AdminProduct extends Model
     protected $primaryKey = 'id';
 
     protected $allowedFields = ['images','name', 'price', 'description ', 'category', 'amount', 'status'];
+
+    
 }

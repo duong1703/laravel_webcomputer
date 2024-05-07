@@ -38,13 +38,13 @@
 
                     </div>
 
-                   
                     <div class="col-sm-7">
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         <div class="product-information">
                             <div id="cart-notification" class="alert alert-success text-center" style="display: none; margin-right: 30px">
                                 Sản phẩm đã được thêm vào giỏ hàng thành công.

@@ -6,10 +6,10 @@
             <div class="col-sm-3">
                 <div class="left-sidebar">
                     <h2>Danh mục sản phẩm</h2>
-                    @foreach($cateproduct as $cate_product)
+                    @foreach($category as $cate_product)
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title"><a href="/views/client/pages/product/category={{ $cate_product->category }}">{{ $cate_product->category }}</a> <span class="product-count">({{ $cate_product->product_count }})</span></h4>
+                            <h4 class="panel-title"><a href="/views/client/pages/product?category={{ $cate_product->category }}">{{ $cate_product->category }}</a> <span class="product-count">({{ $cate_product->product_count }})</span></h4>
                             
                         </div>
                     </div>
@@ -48,9 +48,9 @@
                                     </div>
                                     <div class="product-overlay">
                                         <div class="overlay-content">
-                                            <h2>{{ $product->price  }} VND </h2>
+                                            <h2>{{ number_format( $product->price )  }} VND </h2>
                                             <p>{{ $product->name }}</p>
-                                            <a href="#" class="btn btn-default add-to-cart"><i
+                                            <a href="{{ route('add_to_cart',  $product->id) }}" class="btn btn-default add-to-cart"><i
                                                     class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                     </div>

@@ -68,24 +68,34 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
-                        @auth
+                        @if(Auth::check())
                         <!-- Hiển thị khi người dùng đã đăng nhập -->
                         <ul class="nav navbar-nav">
-                            <li><a href="{{ route('profile') }}"><i
-                                        class="fa fa-user"></i>{{ $customer->name }}</a></li>
+                            <li><a href="{{ route('profile') }}"><i class="fa fa-user"></i> {{ Auth::user()->name}} </a>
+                            </li>
                             <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
-                            <li><a href="{{ route('viewcart') }}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-                            <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
+                            <li><a href="{{ route('viewcart') }}"><i class="fa fa-shopping-cart"></i> Giỏ hàng <span
+                                        class="badge badge badge-info">{{ count((array) session('cart')) }}</span></a>
+                            </li>
+                            <li><a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+                                        class="fa fa-sign-out"></i> Đăng xuất</a></li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </ul>
                         @else
                         <!-- Hiển thị khi người dùng chưa đăng nhập -->
                         <ul class="nav navbar-nav">
                             <li><a href="{{ route('profile') }}"><i class="fa fa-user"></i> Tài khoản</a></li>
                             <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
-                            <li><a href="{{ route('viewcart') }}"><i class="fa fa-shopping-cart"></i> Giỏ hàng <span class="badge badge badge-info">{{ count((array) session('cart')) }}</span></a> </li>
-                            <li><a href="{{ route('customer.login') }}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+                            <li><a href="{{ route('viewcart') }}"><i class="fa fa-shopping-cart"></i> Giỏ hàng <span
+                                        class="badge badge badge-info">{{ count((array) session('cart')) }}</span></a>
+                            </li>
+                            <li><a href="{{ route('login-user') }}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
                         </ul>
-                        @endauth
+                        @endif
+
                     </div>
 
                 </div>

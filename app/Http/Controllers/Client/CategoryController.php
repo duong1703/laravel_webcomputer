@@ -21,4 +21,6 @@ class CategoryController extends Controller
     
             return view('products.categories')->with('products', $category);
         }
+
+    
 }

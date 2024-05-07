@@ -13,21 +13,32 @@ class RegisterController extends Controller
         return view('/client/pages/register');
     }
 
-    public function register(Request $request){
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|string|min:8|max:255|confirmed',
-        ]);
+    // public function register(Request $request){
+    //    $user = new User();
+
+    //    $user->name = $request->name;
+    //    $user->email = $request->email;
+    //    $user->password = Hash::make($request->password);
+
+    //    $user->save();
+
+    //    return back()->with('success', 'Đăng ký thành công');
+    // }
+
+    public function register(Request $request)
+    {
     
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($request->password),
-        ]);
+    $user = new User();
+
     
-        auth()->login($user);
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->password = Hash::make($request->password); 
+
     
-        return redirect('views/client/pages/login')->with('success', "Account successfully registered.");
+    $user->save();
+
+   
+    return back()->with('success', 'Đăng ký thành công');
     }
 }

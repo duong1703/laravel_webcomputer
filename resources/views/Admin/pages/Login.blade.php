@@ -78,7 +78,7 @@ body {
                     @endif
                 </div>
 
-                <form id="loginForm" action="/login" method="post">
+                <form id="loginForm" action="{{ route('Adminlogin') }}" method="post">
                     @csrf
                     <div class="form-group">
                         <input name="email" type="email" class="form-control" id="exampleInputEmail1"

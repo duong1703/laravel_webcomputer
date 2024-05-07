@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Hash;
+use Session;
+
 
 class LoginController extends Controller
 {
@@ -12,23 +17,60 @@ class LoginController extends Controller
         return view('/client/pages/login');
     }
 
+    // public function login(Request $request)
+    // {
+    //     // $credetials = [
+        //     'email' => $request->email,
+        //     'password' => $request->password,
+        // ];
+
+
+        // if(Auth::attempt($credetials)){
+        //     return redirect()->route('homepage')->with('success', 'Đăng nhập thành công');
+        // }
+        // return back()->with('error', 'Đăng nhập thất bại');
+        // dd($request->all());
+
+        ///////////////////
+
+
+        // if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        //     return redirect()->route('homepage');
+        // }
+        // return back()->with('error', 'Đăng nhập thất bại');
+
+    // }
+
     public function login(Request $request)
     {
-        // Kiểm tra xác thực đăng nhập của khách hàng
-        $credentials = $request->only('email', 'password');
-        
-        if (Auth::guard('customer')->attempt($credentials)) {
-             // Đăng nhập thành công, lưu tên khách hàng vào session
-        $customer = Auth::guard('customer')->user();
-        session(['customer_name' => $customer->name]);
+  
+    $user = User::where('email', $request->email)->first();
 
-            // Đăng nhập thành công, chuyển hướng đến trang sau khi đăng nhập
-            return redirect('/views/client/pages/home');
-        } else {
-            // Đăng nhập không thành công, chuyển hướng lại với thông báo lỗi
-            return redirect()->back()->with('error', 'Email hoặc mật khẩu không chính xác.');
-        }
+    if ($user && Hash::check($request->password, $user->password)) {
+      
+        Auth::login($user);
+        return redirect()->route('homepage')->with('success', 'Đăng nhập thành công');
     }
 
+    
+    return back()->with('error', 'Đăng nhập thất bại');
+    }
+    
   
-}
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    
+        return redirect()->route('login')->with('success', 'Bạn đã đăng xuất thành công.');
+    }
+    
+    }
+    
+
+
+
+
+  

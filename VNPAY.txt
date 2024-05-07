@@ -25,5 +25,18 @@ Tên chủ thẻ:NGUYEN VAN A
 Ngày phát hành:07/15
 Mật khẩu OTP:123456s
 
-$vnp_TmnCode = "49QQJ0P0";
-$vnp_HashSecret = "DDKERPU2HKT7X9O4D79SQF2CBY26FGET"; 
+ $vnp_TmnCode = "LB4UAA4U";
+$vnp_HashSecret = "K4ZOP11J19IOSKK7RPQJNAW89LKJXJNE"; 
+
+vnp_Amount=1879900000
+vnp_BankCode=NCB
+vnp_BankTranNo=VNP14403485
+vnp_CardType=ATM
+vnp_OrderInfo=Thanh+toán+hóa+đơn
+vnp_PayDate=20240506133343
+vnp_ResponseCode=00&
+vnp_TmnCode=49QQJ0P0
+vnp_TransactionNo=14403485
+vnp_TransactionStatus=00&
+vnp_TxnRef=2259
+vnp_SecureHash=d0c0921623e383702cd950760df45699df5d6b318899a580b714b2230349ced636cf861f27fe9249d42138aae9b69d1ce165dab4729cfa37917b98bf4a63e6bc

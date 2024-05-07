@@ -17,22 +17,48 @@
                 <div class="contact-form">
                     <h2 class="title text-center">Gửi thông tin tới chúng tôi để được hỗ trợ!</h2>
                     <div class="status alert alert-success" style="display: none"></div>
-                    <form action="" id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+                    @if(Session::has('success'))
+                    <div class="alert alert-success">
+                        {{Session::get('success')}}
+                    </div>
+                    @endif
+                    <form action="{{ route('contact.us.store') }}" id="main-contact-form" class="contact-form row"
+                        name="contact-form" method="post">
                         @csrf
                         <div class="form-group col-md-6">
-                            <input type="text" name="name" class="form-control" required="required" placeholder="Name">
+                            <input type="text" name="name" class="form-control"  placeholder="Name">
+                            @if ($errors->has('name'))
+                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                            @endif
                         </div>
                         <div class="form-group col-md-6">
-                            <input type="email" name="email" class="form-control" required="required"
+                            <input type="email" name="email" class="form-control" 
                                 placeholder="Email">
+                            @if ($errors->has('email'))
+                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <input type="number" name="phone" class="form-control" 
+                                placeholder="Phone">
+                            @if ($errors->has('phone'))
+                            <span class="text-danger">{{ $errors->first('phone') }}</span>
+                            @endif
                         </div>
                         <div class="form-group col-md-12">
-                            <input type="text" name="subject" class="form-control" required="required"
+                            <input type="text" name="subject" class="form-control" 
                                 placeholder="Subject">
+                            @if ($errors->has('subject'))
+                            <span class="text-danger">{{ $errors->first('subject') }}</span>
+                            @endif
                         </div>
                         <div class="form-group col-md-12">
-                            <textarea name="message" id="message" required="required" class="form-control" rows="8"
+                            <textarea name="message" id="message" class="form-control" rows="8"
                                 placeholder="Your Message Here"></textarea>
+                            @if ($errors->has('message'))
+                            <span class="text-danger">{{ $errors->first('message') }}</span>
+                            @endif
                         </div>
                         <div class="form-group col-md-12">
                             <input type="submit" name="submit_contact" class="btn btn-primary pull-right"

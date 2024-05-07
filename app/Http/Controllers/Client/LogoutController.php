@@ -19,6 +19,6 @@ class LogoutController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/client/pages/login');
+        return redirect('/views/client/pages/login');
     }
 }

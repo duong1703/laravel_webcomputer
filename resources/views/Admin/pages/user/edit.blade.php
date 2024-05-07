@@ -24,10 +24,8 @@
                             </div>
                             @endif
                         </div>
-                        <form action="/views/admin/pages/product/edit/{{ $adminuser->id }}" method="post">
-                        @csrf
-                            @method('PUT')
-                            <input name="id" value="" hidden>
+                        <form action="{{ route('admin.users.update', $adminuser->id) }}" method="post">
+                            @csrf
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="inputEmail4">Email</label>
@@ -41,11 +39,19 @@
                                     id="inputAddress" placeholder="Tên hiển thị người dùng" required>
                             </div>
                             <div class="form-group">
-                                <label for="status">Trạng thái users</label>
-                                <select name="status" class="form-control" required>
-                                    <option value="1" <?php  ?>>Enable</option>
-                                    <option value="0">Disable</option>
-                                </select>
+                                <div class="form-group">
+                                    <label for="status">Trạng thái users</label>
+                                    <label>
+                                        <input type="checkbox" name="status" value="1"
+                                        {{ $adminuser->status == 1 ? 'checked' : '' }}>
+                                        @if($adminuser->status == 1)
+                                        Enabled
+                                        @else
+                                        Disabled
+                                        @endif
+                                    </label>
+                                </div>
+
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">

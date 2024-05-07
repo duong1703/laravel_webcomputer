@@ -40,7 +40,7 @@
                             <div class="overlay-content">
                                 <h2> {{ number_format($product->price)  }} VND</h2>
                                 <p>{{ $product->name }}</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                <a href="{{ route('add_to_cart', $product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                             </div>
                         </div>
                     </div>

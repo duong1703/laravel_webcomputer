@@ -3,19 +3,23 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use Illuminate\Http\Request;
+use Session;
+use Auth;
 
 class PaymentController extends Controller
 {
 
     public function vnpay_payment(Request $request){
 
+
         $data = $request->all();
 
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-        $vnp_TmnCode = "49QQJ0P0";
-        $vnp_HashSecret = "DDKERPU2HKT7X9O4D79SQF2CBY26FGET"; 
+        $vnp_Returnurl = "http://127.0.0.1:8000/views/client/pages/thankspage";
+        $vnp_TmnCode = "LB4UAA4U";
+        $vnp_HashSecret = "K4ZOP11J19IOSKK7RPQJNAW89LKJXJNE"; 
         
         $vnp_TxnRef = rand(1,9999); 
     
@@ -78,6 +82,7 @@ class PaymentController extends Controller
             } else {
                 echo json_encode($returnData);
             }
-            // vui lòng tham khảo thêm tại code demo
+            
         }
+        
     }

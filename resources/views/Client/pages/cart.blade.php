@@ -36,7 +36,11 @@
                             <p>{{ $details['id']}}</p>
                         </td>
                         <td>
-                            <img src="{{ asset('images' . $details['image']) }}">
+                            @if(isset($details['images']))
+                            <img src="{{ asset($details['images']) }} " style="width:120px; height:120px;">
+                            @endif
+
+
                         </td>
                         <td>
                             <h5>{{ $details['name']   }}</h5>
@@ -49,9 +53,12 @@
                             <span class="count"> {{ $details['quantity']}}</span>
                         </td>
                         <td class="actions" data-th="" style="margin-top:25px;">
-                            <button class="btn btn-danger btn-sm cart-remove "
-                                 style="margin-left:35px;"><i class="fa fa-trash-o"> </i>
-                                Xóa</button>
+
+                            <form action="{{ route('cart.remove', ['itemId' => $details['id']]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="" type="submit">Xóa khỏi giỏ hàng</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -74,10 +81,12 @@
                     <ul>
                         <li>Tổng tiền <span> {{ number_format($total) }} VND</span></li>
                     </ul>
+
                     <form action="{{ url('/vnpay_payment') }}" method="post">
-                    @csrf
-                    <input name="total" type="hidden" value="{{ $total }}">
-                    <button type="submit" name="redirect" class="btn btn-default check_out">Thanh toán VNPAY</button>
+                        @csrf
+                        <input name="total" type="hidden" value="{{ $total }}">
+                        <button type="submit" name="redirect" class="btn btn-default check_out mt-2">Thanh toán
+                            VNPAY</button>
                     </form>
                     <a class="btn btn-default check_out" href="{{ route('listproduct') }}">Tiếp tục mua sắm</a>
                 </div>
@@ -85,27 +94,23 @@
         </div>
     </div>
 </section>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    $(".cart-remove").click(function (e) {
-        e.preventDefault();
+// Add event listener to delete icon
+document.querySelectorAll('.cart_quantity_delete').forEach(function(element) {
+    element.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
 
-        var ele = $(this);
+        // Find the parent row and remove it
+        var row = element.closest('tr');
+        row.remove();
 
-        if (confirm("Bạn có muốn xóa sản phẩm này không ?")) {
-            $.ajax({
-                url: '{{ route('remove_from_cart') }}',
-                method: 'DELETE',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    id: ele.parents("tr").attr("data-id")
-                },
-                success: function (response) {
-                    window.location.reload();
-                }
-            });
-        }
+        // Alternatively, you can send an AJAX request to delete the item from the server
+        // and then remove the row upon successful deletion
     });
+});
 </script>
 
 
