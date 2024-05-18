@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Trang chủ</title>
+    <title></title>
     <link href="{{ asset('css/bootstrap.min.css') }} " rel="stylesheet">
     <link href="{{ asset('css/prettyPhoto.css') }} " rel="stylesheet">
     <link href="{{ asset('css/price-range.css') }} " rel="stylesheet">

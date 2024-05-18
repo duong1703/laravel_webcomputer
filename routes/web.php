@@ -67,7 +67,7 @@ Route::get('add-to-cart/{id}', [\App\Http\Controllers\Client\ProductController::
 Route::delete('/remove-from-cart', [\App\Http\Controllers\Client\ProductController::class, 'remove'])->name('remove_from_cart');
 Route::delete('cart/{itemId}', [\App\Http\Controllers\Client\ProductController::class, 'removeItemFromCart'])->name('cart.remove');
 
-Route::get('views/client/pages/checkoutpage', [\App\Http\Controllers\Client\ProductController::class,'index'])->name('checkout');
+Route::get('views/client/pages/checkoutpage', [CheckoutController::class,'index'])->name('checkout');
 Route::get('views/client/pages/thankspage', [ResponsePage::class,'thankspage']);
 
 Route::get('/products/{category}', [\App\Http\Controllers\Client\ProductController::class, 'index'])->name('products.index');

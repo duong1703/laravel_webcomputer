@@ -15,13 +15,13 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div class="text-center">
                     <h1>Thông tin người dùng</h1>
-                    <h5>ID người dùng:</h5>
+                    <h5>ID người dùng:{{auth()->user()->id }}</h5>
                     <hr>
-                    <h5>Tên người dùng: </h5>
+                    <h5>Tên người dùng: {{auth()->user()->name }} </h5>
                     <hr>
-                    <h5>Email: </h5>
+                    <h5>Email:{{auth()->user()->email }} </h5>
                     <hr>
-                    <h5>Ngày tạo: </h5>
+                    <h5>Ngày tạo:{{auth()->user()->created_at }} </h5>
                     <hr>
                 </div>
             </div>

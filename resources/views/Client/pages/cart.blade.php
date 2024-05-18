@@ -66,12 +66,15 @@
                 </tbody>
             </table>
         </div>
+        <div style="margin-bottom:25px" >
+            <a class="btn btn-default check_out" href="{{ route('checkout') }}">Check out</a>
+            <a class="btn btn-default check_out" href="{{ route('listproduct') }}">Tiếp tục mua sắm</a>
+        </div>
     </div>
 </section>
 <!--/#cart_items-->
 
-
-
+<!-- 
 <section id="do_action">
     <div class="container">
 
@@ -93,7 +96,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
